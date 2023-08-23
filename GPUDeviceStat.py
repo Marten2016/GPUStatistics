@@ -76,16 +76,13 @@ while True:
         fxout = open(out_max_path, "w")
         fxout.write(str(result_max_map))
         fxout.close()
-        #update_max_tag = False
     if update_min_tag:
         fnout = open(out_min_path, "w")
         fnout.write(str(result_min_map))
         fnout.close()
-        #update_min_tag = False
     if update_avg_tag:
         fgout = open(out_avg_path, "w")
         fgout.write(str(result_avg_map))
         fgout.close()
-        #update_avg_tag = False
     
     time.sleep(time_interval)
