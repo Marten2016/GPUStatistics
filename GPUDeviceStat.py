@@ -35,6 +35,7 @@ while True:
         device = lines[i].split("  Tesla V100S-PCI...  Off")[0].split(" ")[-1]
         #device = lines[i].split("  Tesla V100-PCIE...  Off")[0].split(" ")[-1]
         mem = int(lines[i].split("MiB / ")[0].split(" ")[-1])
+        
         #update max mem
         if device in result_max_map:
             if result_max_map[device] < mem:
@@ -43,6 +44,7 @@ while True:
         else:
             result_max_map[device] = mem
             update_max_tag = True
+            
         #update min mem
         if device in result_min_map:
             if result_min_map[device] > mem:
@@ -51,7 +53,8 @@ while True:
         else:
             result_min_map[device] = mem
             update_min_tag = True
-        #update avg mem
+            
+        #update avg mem,record the sum and count
         #mem_float = float(mem)/1024
         if device in result_avg_map:
             prevalue = result_avg_map[device].split(":")
@@ -61,14 +64,13 @@ while True:
                 continue
             #sum_value = float(prevalue[0]) + mem_float
             sum_value = int(prevalue[0]) + int(mem)
-
-            #avg_count += 1
             result_avg_map[device] = ':'.join([str(sum_value), str(avg_count)])
             update_avg_tag = True
         else:
             #result_avg_map[device] = ':'.join([str(mem_float), str(avg_count)])
             result_avg_map[device] = ':'.join([str(mem), str(avg_count)])
             update_avg_tag = True
+            
     #write result to file    
     if update_max_tag:
         fxout = open(out_max_path, "w")
