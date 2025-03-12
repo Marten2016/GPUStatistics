@@ -58,16 +58,14 @@ while True:
         #mem_float = float(mem)/1024
         if device in result_avg_map:
             prevalue = result_avg_map[device].split(":")
-            #if float(prevalue[0]) >= sys.float_info.max - 32 or avg_count >= sys.maxsize - 1:
             if int(prevalue[0]) >= sys.maxsize - 32768 or avg_count >= sys.maxsize - 1:
                 print("too long to save, finish avg job!")
                 continue
-            #sum_value = float(prevalue[0]) + mem_float
             sum_value = int(prevalue[0]) + int(mem)
-            result_avg_map[device] = ':'.join([str(sum_value), str(avg_count)])
+            avg_mem = (int(prevalue[0]) * avg_count + mem)//(avg_count +1)
+            result_avg_map[device] = ':'.join([str(avg_mem), str(avg_count)])
             update_avg_tag = True
         else:
-            #result_avg_map[device] = ':'.join([str(mem_float), str(avg_count)])
             result_avg_map[device] = ':'.join([str(mem), str(avg_count)])
             update_avg_tag = True
             
